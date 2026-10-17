@@ -1,24 +1,7 @@
 +++
-title = "Home"
-template = "section.html"
+title = "Jonathan Esperanza"
 +++
 
-# Hello!
-I'm Jonathan Esperanza, a software engineer.
-* I am currently at Credit Karma, working on the Recommendations Platform.
-* I spend time reading articles and books on the topics of distributed systems, machine learning, and data. I've recently started [posting notes on Bluesky](https://bsky.app/profile/jonathanesperanza.com)!
-* I have worked on open source projects including [Apache Beam](https://beam.apache.org/) and [Trino](https://trino.io/).
+I build ML infrastructure. At Yahoo that means the Memory Platform, which turns high-volume behavioral event streams into structured memory that AI features can use to personalize.
 
-## Personal life
-Usually playing soccer or video games, watching movies, building a side project, or spending time with friends and family.
-
-## Work
-Experienced in recommendation systems and large-scale data processing. 
-
-Day-to-day work:
-- Innovating ML applications
-- Optimizing infrastructure cost
-- Enhancing system performance
-
-## Recent Bluesky posts
-{{ bluesky() }}
+Before Yahoo I spent three years on the Recommendations Platform at Credit Karma, owning feature pipelines, model serving, and ranking. I've contributed to [Apache Beam](https://beam.apache.org/), [Trino](https://trino.io/), and [Bento](https://github.com/warpstreamlabs/bento), and I write here about distributed systems and the machinery behind ML products. Away from a keyboard, I'm usually playing soccer.

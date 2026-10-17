@@ -1,36 +1,32 @@
-# The URL the site will be built for
 base_url = "https://jonathanesperanza.com/"
+title = "Jonathan Esperanza"
+description = "Jonathan Esperanza writes about ML infrastructure, recommendation systems, and distributed systems."
+author = "Jonathan Esperanza"
+default_language = "en"
 
-# Whether to automatically compile all Sass files in the sass directory
-compile_sass = true
-
-# Whether to build a search index to be used later on by a JavaScript library
+compile_sass = false
 build_search_index = false
 
-title = "Jonathan Esperanza's website"
-description = "software engineer"
+# Feeds are generated per section; see content/posts/_index.md
+generate_feeds = false
+feed_filenames = ["atom.xml"]
 
 [markdown]
-# Whether to do syntax highlighting
-# Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola
 highlight_code = true
 highlight_theme = "css"
-
+smart_punctuation = true
+bottom_footnotes = true
+external_links_target_blank = false
 
 [extra]
-# Put all your custom variables here
 name = "Jonathan Esperanza"
-d3_icon = ""
-d3_nav = [
-    { name = "Posts", path = "/posts" },
-    { name = "Projects", path = "/projects" },
+nav = [
+    { name = "Writing", path = "/posts/" },
+    { name = "Projects", path = "/projects/" },
     { name = "Resume", path = "/files/cv.pdf" },
 ]
-d3_author = "Jonathan Esperanza"
 links = [
-    { name = "Bluesky", url = "https://bsky.app/profile/jonathanesperanza.com", icon="bluesky" },
-    { name = "GitHub", url = "https://github.com/jon-esperanza", icon="github" },
-    { name = "LinkedIn", url = "https://www.linkedin.com/in/jonathanesperanza/", icon="linkedin" },
+    { name = "GitHub", url = "https://github.com/jesperanzasolo" },
+    { name = "Bluesky", url = "https://bsky.app/profile/jonathanesperanza.com" },
+    { name = "LinkedIn", url = "https://www.linkedin.com/in/jonathanesperanza/" },
 ]
-
-

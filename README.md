@@ -1,0 +1,47 @@
+# jonathanesperanza.com
+
+Personal site and writing, built with [Zola](https://www.getzola.org/). Every push to `main` builds and deploys to GitHub Pages. Pull requests get a build check.
+
+## Writing a post
+
+```sh
+bin/new-post "How memory consolidation works"   # creates a draft
+bin/preview                                     # local server with drafts, reloads on save
+bin/publish how-memory-consolidation-works      # un-drafts, dates it today, commits, pushes
+```
+
+- **Drafts never deploy.** A post with `draft = true` only shows up in `bin/preview`, marked as a draft.
+- **Each post is a folder:** `content/posts/<slug>/index.md`. Put images next to it and reference them by filename: `![Diagram of the pipeline](pipeline.png)`.
+- **Fill in `description`.** One sentence. It appears under the title in lists, in link previews, and in the feed.
+- `bin/publish <slug> --no-push` commits without pushing. `bin/publish` with no arguments lists your drafts.
+
+Front matter:
+
+```toml
++++
+title = "How memory consolidation works"
+date = 2026-10-17
+description = "What happens to a user's memories overnight, and why it runs as a batch job."
+draft = true
+# updated = 2026-11-02   # optional, shown as "updated" on the post
++++
+```
+
+Markdown supports footnotes (`[^1]`), tables, fenced code with syntax highlighting, and smart quotes.
+
+## Layout
+
+| Path | What it is |
+|---|---|
+| `content/_index.md` | Homepage introduction |
+| `content/posts/` | Writing. Feed at `/posts/atom.xml` |
+| `content/projects.md` | Projects page |
+| `templates/` | Tera templates. `base.html` is the shell |
+| `static/global.css` | All styles. Color tokens at the top, light and dark |
+| `static/files/cv.pdf` | Resume linked from the nav |
+
+## Requirements
+
+[Zola](https://www.getzola.org/documentation/getting-started/installation/) 0.19 or newer (`brew install zola`).
+
+Fonts are Alegreya, Alegreya Sans, and JetBrains Mono, self-hosted under the SIL Open Font License (see `static/fonts/OFL-*.txt`).

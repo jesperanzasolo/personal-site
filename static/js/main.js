@@ -1,16 +1,25 @@
-function enableThemeToggle() {
-    const themeToggle = document.querySelector('#theme-toggle');
-    if (!themeToggle) return;
-    const preferDark = window.matchMedia("(prefers-color-scheme: dark)");
-    function toggleTheme(theme) {
-        if (theme == "dark") document.body.classList.add('dark'); else document.body.classList.remove('dark');
-        window.
-        sessionStorage.setItem("theme", theme);
-    }
-    themeToggle.addEventListener('click', () => toggleTheme(sessionStorage.getItem("theme") == "dark" ? "light" : "dark"));
-    preferDark.addEventListener("change", e => toggleTheme(e.matches ? "dark" : "light"));
-    if (!sessionStorage.getItem("theme") && preferDark.matches) toggleTheme("dark");
-    if (sessionStorage.getItem("theme") == "dark") toggleTheme("dark");
-}
+(function () {
+  var root = document.documentElement;
+  var button = document.querySelector("button.theme");
+  if (!button) return;
+  var media = window.matchMedia("(prefers-color-scheme: dark)");
 
-enableThemeToggle();
+  function current() {
+    return root.dataset.theme || (media.matches ? "dark" : "light");
+  }
+  function label() {
+    var next = current() === "dark" ? "Light" : "Dark";
+    button.textContent = next;
+    button.setAttribute("aria-label", "Switch to " + next.toLowerCase() + " theme");
+  }
+
+  button.hidden = false;
+  label();
+  button.addEventListener("click", function () {
+    var next = current() === "dark" ? "light" : "dark";
+    root.dataset.theme = next;
+    try { localStorage.setItem("theme", next); } catch (e) {}
+    label();
+  });
+  media.addEventListener("change", label);
+})();

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Serve the site locally with drafts included, reloading on save.
+set -euo pipefail
+cd "$(dirname "$0")/.."
+exec zola serve --drafts "$@"
