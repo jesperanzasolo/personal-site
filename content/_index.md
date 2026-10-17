@@ -2,7 +2,6 @@
 title = "Jonathan Esperanza"
 
 [extra]
-role = "ML infrastructure engineer"
 projects = [
     { name = "rust-build-bench", url = "https://github.com/jesperanzasolo/rust-build-bench", description = "How much CI time Rust monorepo build tools save on real pull requests" },
 ]

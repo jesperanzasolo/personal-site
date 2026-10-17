@@ -1,5 +1,4 @@
-{#- A row is a link spanning the content column: title, optional description, value on the right. -#}
-{% macro post_rows(pages, year_only=true) %}
+{% macro post_rows(pages, date_format="%b %Y") %}
 <ul class="rows">
   {%- for page in pages %}
   <li>
@@ -8,7 +7,7 @@
         <span class="row-title">{{ page.title }}{% if page.draft %}<span class="draft">Draft</span>{% endif %}</span>
         {%- if page.description %}<span class="row-desc">{{ page.description }}</span>{% endif %}
       </span>
-      <time class="row-end" datetime="{{ page.date }}">{% if year_only %}{{ page.date | date(format="%b %Y") }}{% else %}{{ page.date | date(format="%b %-d") }}{% endif %}</time>
+      <time class="row-end" datetime="{{ page.date }}">{{ page.date | date(format=date_format) }}</time>
     </a>
   </li>
   {%- endfor %}
@@ -16,7 +15,7 @@
 {% endmacro post_rows %}
 
 {% macro elsewhere(links, resume) %}
-<div class="block">
+<section class="block">
   <h2 class="label">Elsewhere</h2>
   <ul class="inline-links">
     {%- for link in links %}
@@ -25,5 +24,5 @@
     <li><a href="{{ get_url(path=resume) | safe }}">Resume</a></li>
     <li><a href="{{ get_url(path='posts/atom.xml') | safe }}">RSS</a></li>
   </ul>
-</div>
+</section>
 {% endmacro elsewhere %}

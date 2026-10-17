@@ -5,5 +5,5 @@ template = "list.html"
 page_template = "article.html"
 sort_by = "date"
 generate_feeds = true
-insert_anchor_links = "left"
+insert_anchor_links = "right"
 +++

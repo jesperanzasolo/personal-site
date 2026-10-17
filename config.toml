@@ -20,6 +20,7 @@ external_links_target_blank = false
 
 [extra]
 name = "Jonathan Esperanza"
+role = "ML infrastructure engineer"
 resume = "/files/cv.pdf"
 links = [
     { name = "GitHub", url = "https://github.com/jesperanzasolo" },

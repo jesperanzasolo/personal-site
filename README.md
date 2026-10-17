@@ -37,6 +37,7 @@ Markdown supports footnotes (`[^1]`), tables, fenced code with syntax highlighti
 | `content/posts/` | Writing. Feed at `/posts/atom.xml` |
 | `templates/` | Tera templates. `base.html` is the shell |
 | `static/global.css` | All styles. Color tokens at the top; dark mode follows the system |
+| `static/js/jump.js` | The jump menu (⌘K, Ctrl K, or `/`). Its list is built from posts, projects, and links at build time, so new posts show up automatically |
 | `static/files/cv.pdf` | Resume linked from the nav |
 
 ## Requirements

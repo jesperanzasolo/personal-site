@@ -1,25 +1,24 @@
 {% extends "base.html" %}
 {% import "macros.html" as m %}
-{% block masthead_aside %}<span class="role">{{ section.extra.role }}</span>{% endblock masthead_aside %}
 {% block content %}
-<div class="lead">
+<section class="lead">
   {{ section.content | safe }}
-</div>
+</section>
 
 {% set posts = get_section(path="posts/_index.md") %}
-<div class="block">
+<section class="block">
   <h2 class="label"><a href="{{ posts.permalink | safe }}">Writing</a></h2>
   {%- if posts.pages | length > 0 %}
   {{ m::post_rows(pages=posts.pages | slice(end=6)) }}
   {%- if posts.pages | length > 6 %}
-  <p class="after-rows"><a href="{{ posts.permalink | safe }}">All {{ posts.pages | length }} posts</a></p>
+  <p class="after"><a href="{{ posts.permalink | safe }}">All {{ posts.pages | length }} posts</a></p>
   {%- endif %}
   {%- else %}
   <p class="quiet">First post coming soon. Subscribe with <a href="{{ get_url(path='posts/atom.xml') | safe }}">RSS</a> to get it.</p>
   {%- endif %}
-</div>
+</section>
 
-<div class="block">
+<section class="block">
   <h2 class="label">Projects</h2>
   <ul class="rows">
     {%- for p in section.extra.projects %}
@@ -43,7 +42,7 @@
     </li>
     {%- endif %}
   </ul>
-</div>
+</section>
 
 {{ m::elsewhere(links=config.extra.links, resume=config.extra.resume) }}
 {% endblock content %}
