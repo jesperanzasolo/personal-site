@@ -3,6 +3,12 @@
 {% block content %}
 <section class="lead">
   {{ section.content | safe }}
+  <div class="term-panel" id="term-panel" aria-live="polite">
+    <div class="term-panel-inner">
+      <p class="term-label"></p>
+      <p class="term-text"></p>
+    </div>
+  </div>
 </section>
 
 {% set posts = get_section(path="posts/_index.md") %}
@@ -45,4 +51,5 @@
 </section>
 
 {{ m::elsewhere(links=config.extra.links, resume=config.extra.resume) }}
+<script src="{{ get_url(path='js/terms.js', cachebust=true) | safe }}" defer></script>
 {% endblock content %}

@@ -27,44 +27,11 @@
 <body>
   <header class="masthead">
     <a class="name" href="{{ config.base_url | safe }}" rel="home">{{ config.extra.name }}</a>
-    <a class="jump" href="{{ get_url(path='posts/') | safe }}" data-jump-open aria-haspopup="dialog" aria-keyshortcuts="Meta+K Control+K /">
-      <span>Jump to</span><kbd class="jump-key" data-jump-key>/</kbd>
-    </a>
+    <span class="role">{{ config.extra.role }}</span>
   </header>
   <main>
     {% block content %}{% endblock content %}
   </main>
 
-  {%- set home = get_section(path="_index.md") %}
-  {%- set all_posts = get_section(path="posts/_index.md") %}
-  <dialog class="jump-menu" aria-label="Jump to">
-    <div class="jump-field">
-      <input type="text" placeholder="Search posts, projects, links" autocomplete="off" spellcheck="false"
-             role="combobox" aria-expanded="true" aria-controls="jump-list" aria-autocomplete="list">
-      <button type="button" class="jump-close" data-jump-close><kbd class="on-desk">esc</kbd><span class="on-touch">Close</span></button>
-    </div>
-    <ul id="jump-list" class="jump-list" role="listbox" aria-label="Results"></ul>
-    <p class="jump-empty" hidden>Nothing matches that. Try a shorter word.</p>
-    <p class="jump-help"><span><kbd>↑</kbd><kbd>↓</kbd> move</span><span><kbd>↵</kbd> open</span><span><kbd>esc</kbd> close</span></p>
-  </dialog>
-  <script type="application/json" id="jump-data">[
-    {"group":"Pages","title":"Home","url":{{ config.base_url | json_encode | safe }}},
-    {"group":"Pages","title":"Writing","hint":"All posts","url":{{ all_posts.permalink | json_encode | safe }}}
-    {%- for p in all_posts.pages %},
-    {"group":"Writing","title":{{ p.title | json_encode | safe }},"hint":{{ p.date | date(format="%b %Y") | json_encode | safe }},"url":{{ p.permalink | json_encode | safe }}}
-    {%- endfor %}
-    {%- for p in home.extra.projects %},
-    {"group":"Projects","title":{{ p.name | json_encode | safe }},"hint":"Project","url":{{ p.url | json_encode | safe }}}
-    {%- endfor %}
-    {%- for o in home.extra.open_source %},
-    {"group":"Projects","title":{{ o.name | json_encode | safe }},"hint":"Open source","url":{{ o.url | json_encode | safe }}}
-    {%- endfor %}
-    {%- for link in config.extra.links %},
-    {"group":"Elsewhere","title":{{ link.name | json_encode | safe }},"url":{{ link.url | json_encode | safe }}}
-    {%- endfor %},
-    {"group":"Elsewhere","title":"Resume","hint":"PDF","url":{{ get_url(path=config.extra.resume) | json_encode | safe }}},
-    {"group":"Elsewhere","title":"RSS feed","url":{{ get_url(path='posts/atom.xml') | json_encode | safe }}}
-  ]</script>
-  <script src="{{ get_url(path='js/jump.js', cachebust=true) | safe }}" defer></script>
 </body>
 </html>
