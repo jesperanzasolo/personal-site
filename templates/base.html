@@ -19,7 +19,6 @@
   <meta property="article:published_time" content="{{ page.date }}">
   {%- endif %}
   <link rel="alternate" type="application/atom+xml" title="{{ config.title }}" href="{{ get_url(path='posts/atom.xml') | safe }}">
-  <link rel="icon" href="{{ get_url(path='favicon.svg') | safe }}" type="image/svg+xml">
   <link rel="preload" href="{{ get_url(path='fonts/schibsted-grotesk.woff') | safe }}" as="font" type="font/woff" crossorigin>
   <link rel="stylesheet" href="{{ get_url(path='global.css', cachebust=true) | safe }}">
   <meta name="theme-color" content="#F7F8F9" media="(prefers-color-scheme: light)">
@@ -27,10 +26,7 @@
 </head>
 <body>
   <header class="masthead">
-    <a class="mark" href="{{ config.base_url | safe }}" rel="home" aria-label="{{ config.extra.name }}, home">
-      {% include "partials/seal.html" %}
-      <span>{{ config.extra.name }}</span>
-    </a>
+    <a class="mark" href="{{ config.base_url | safe }}" rel="home">{{ config.extra.name }}</a>
     {%- block masthead_aside %}{% endblock masthead_aside %}
   </header>
   <main>

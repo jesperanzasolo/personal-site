@@ -3,7 +3,7 @@
 @font-face { font-family: "Schibsted Grotesk"; src: url("fonts/schibsted-grotesk-italic.woff") format("woff"); font-weight: 400 900; font-style: italic; font-display: swap; }
 @font-face { font-family: "JetBrains Mono"; src: url("fonts/jetbrains-mono.woff") format("woff"); font-weight: 100 800; font-style: normal; font-display: swap; }
 
-/* Tokens. Cool neutrals; indigo is reserved for the seal and interaction. */
+/* Tokens. Cool neutrals; indigo is reserved for interaction. */
 :root {
   --bg: #F7F8F9;
   --ink: #15171B;
@@ -87,17 +87,11 @@ p { margin: 0; }
   margin-bottom: 96px;
 }
 .mark {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
   color: var(--ink);
   font-weight: 600;
   letter-spacing: -0.01em;
   text-decoration: none;
 }
-.seal { width: 20px; height: 20px; flex: none; }
-.seal-ink { fill: var(--accent); }
-.seal-line { stroke: var(--bg); }
 .role { color: var(--muted); font-size: 14px; }
 
 /* The index grid: label column on the left, content on the right */
@@ -179,8 +173,6 @@ a.row:hover { background: var(--hover); }
 .article .page-title { margin-left: 0; }
 .meta { margin-top: 12px; font-size: 14px; }
 .draft-note { margin-bottom: 24px; padding: 8px 12px; border: 1px dashed var(--line); border-radius: 8px; color: var(--muted); font-size: 14px; }
-.signoff { margin-top: 56px; }
-.signoff .seal { width: 16px; height: 16px; opacity: 0.9; }
 .article + .block { margin-top: 96px; }
 
 .prose { font-size: 17px; line-height: 1.72; }
