@@ -6,6 +6,10 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
+if ! zola --version 2>/dev/null | grep -q ' 0\.21\.'; then
+  echo "warning: this site builds with Zola 0.21 (found: $(zola --version 2>/dev/null || echo none)). See README." >&2
+fi
+
 if [ $# -lt 1 ]; then
   echo "usage: bin/publish <slug> [--no-push]" >&2
   echo "drafts:" >&2

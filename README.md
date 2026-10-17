@@ -42,6 +42,6 @@ Markdown supports footnotes (`[^1]`), tables, fenced code with syntax highlighti
 
 ## Requirements
 
-[Zola](https://www.getzola.org/documentation/getting-started/installation/) 0.19 or newer (`brew install zola`).
+Zola **0.21**, the version CI uses. Homebrew installs the newest Zola, which can't build this site yet (0.22 changed the template engine), so download [v0.21.0](https://github.com/getzola/zola/releases/tag/v0.21.0) and put `zola` on your PATH. The `bin/` scripts warn if your version doesn't match.
 
 Fonts are Alegreya, Alegreya Sans, and JetBrains Mono, self-hosted under the SIL Open Font License (see `static/fonts/OFL-*.txt`).

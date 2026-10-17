@@ -27,6 +27,6 @@ nav = [
 ]
 links = [
     { name = "GitHub", url = "https://github.com/jesperanzasolo" },
-    { name = "Bluesky", url = "https://bsky.app/profile/jonathanesperanza.com" },
+    { name = "X", url = "https://x.com/jesperanzasolo" },
     { name = "LinkedIn", url = "https://www.linkedin.com/in/jonathanesperanza/" },
 ]
