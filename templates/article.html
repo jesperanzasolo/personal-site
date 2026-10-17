@@ -1,29 +1,34 @@
 {% extends "base.html" %}
 {% import "macros.html" as m %}
 {% block content %}
-<article>
-  <header class="intro">
-    <a class="home" href="{{ config.base_url | safe }}">{{ config.extra.name }}</a>
+<article class="article">
+  <header class="article-head">
     {%- if page.draft %}
     <p class="draft-note">Draft. Only visible in local preview.</p>
     {%- endif %}
-    <h1>{{ page.title }}</h1>
-    <p class="muted"><time datetime="{{ page.date }}">{{ page.date | date(format="%B %-d, %Y") }}</time>
-      {%- if page.updated %}, updated <time datetime="{{ page.updated }}">{{ page.updated | date(format="%B %-d, %Y") }}</time>{% endif %}</p>
+    <h1 class="page-title">{{ page.title }}</h1>
+    <p class="quiet meta"><time datetime="{{ page.date }}">{{ page.date | date(format="%B %-d, %Y") }}</time>
+      {%- if page.updated %}, updated <time datetime="{{ page.updated }}">{{ page.updated | date(format="%B %-d, %Y") }}</time>{% endif %}, {{ page.reading_time }} min read</p>
   </header>
   <div class="prose">
     {{ page.content | safe }}
   </div>
+  <p class="signoff" aria-hidden="true">{% include "partials/seal.html" %}</p>
 </article>
-{% if page.lower or page.higher %}
-<section>
-  <h2>More writing</h2>
-  <ul class="items">
-    {%- for p in [page.higher, page.lower] %}{% if p %}
-    <li><a href="{{ p.permalink | safe }}"><span class="item-title">{{ p.title }}</span>{% if p.description %}<span class="item-desc">{{ p.description }}</span>{% endif %}</a></li>
-    {%- endif %}{% endfor %}
+
+{%- if page.lower or page.higher %}
+<div class="block">
+  <h2 class="label">Keep reading</h2>
+  <ul class="rows">
+    {%- if page.higher %}
+    <li><a class="row" href="{{ page.higher.permalink | safe }}"><span class="row-main"><span class="row-title">{{ page.higher.title }}</span>{% if page.higher.description %}<span class="row-desc">{{ page.higher.description }}</span>{% endif %}</span><span class="row-end">Newer</span></a></li>
+    {%- endif %}
+    {%- if page.lower %}
+    <li><a class="row" href="{{ page.lower.permalink | safe }}"><span class="row-main"><span class="row-title">{{ page.lower.title }}</span>{% if page.lower.description %}<span class="row-desc">{{ page.lower.description }}</span>{% endif %}</span><span class="row-end">Older</span></a></li>
+    {%- endif %}
   </ul>
-</section>
-{% endif %}
-{{ m::more(links=config.extra.links, resume=config.extra.resume) }}
+</div>
+{%- endif %}
+
+{{ m::elsewhere(links=config.extra.links, resume=config.extra.resume) }}
 {% endblock content %}

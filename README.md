@@ -33,14 +33,15 @@ Markdown supports footnotes (`[^1]`), tables, fenced code with syntax highlighti
 
 | Path | What it is |
 |---|---|
-| `content/_index.md` | Homepage: tagline, Today paragraphs, and the Projects list (`[extra]`) |
+| `content/_index.md` | Homepage: intro paragraphs, plus `role`, `projects`, and `open_source` under `[extra]` |
 | `content/posts/` | Writing. Feed at `/posts/atom.xml` |
 | `templates/` | Tera templates. `base.html` is the shell |
 | `static/global.css` | All styles. Color tokens at the top; dark mode follows the system |
+| `templates/partials/seal.html` | The JE seal used in the header and to sign off posts |
 | `static/files/cv.pdf` | Resume linked from the nav |
 
 ## Requirements
 
 Zola **0.21**, the version CI uses. Homebrew installs the newest Zola, which can't build this site yet (0.22 changed the template engine), so download [v0.21.0](https://github.com/getzola/zola/releases/tag/v0.21.0) and put `zola` on your PATH. The `bin/` scripts warn if your version doesn't match.
 
-Text uses the system font. Code uses JetBrains Mono, self-hosted under the SIL Open Font License (`static/fonts/OFL-JetBrainsMono.txt`).
+Text is set in Schibsted Grotesk and code in JetBrains Mono, both self-hosted under the SIL Open Font License (`static/fonts/OFL-*.txt`).

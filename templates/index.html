@@ -1,44 +1,49 @@
 {% extends "base.html" %}
 {% import "macros.html" as m %}
+{% block masthead_aside %}<span class="role">{{ section.extra.role }}</span>{% endblock masthead_aside %}
 {% block content %}
-<header class="intro">
-  <h1>{{ config.extra.name }}</h1>
-  <p class="muted">{{ section.extra.tagline }}</p>
-</header>
-
-<section>
-  <h2>Today</h2>
+<div class="lead">
   {{ section.content | safe }}
-</section>
+</div>
 
-{%- if section.extra.projects %}
-<section>
-  <h2>Projects</h2>
-  <ul class="items">
+{% set posts = get_section(path="posts/_index.md") %}
+<div class="block">
+  <h2 class="label"><a href="{{ posts.permalink | safe }}">Writing</a></h2>
+  {%- if posts.pages | length > 0 %}
+  {{ m::post_rows(pages=posts.pages | slice(end=6)) }}
+  {%- if posts.pages | length > 6 %}
+  <p class="after-rows"><a href="{{ posts.permalink | safe }}">All {{ posts.pages | length }} posts</a></p>
+  {%- endif %}
+  {%- else %}
+  <p class="quiet">First post coming soon. Subscribe with <a href="{{ get_url(path='posts/atom.xml') | safe }}">RSS</a> to get it.</p>
+  {%- endif %}
+</div>
+
+<div class="block">
+  <h2 class="label">Projects</h2>
+  <ul class="rows">
     {%- for p in section.extra.projects %}
     <li>
-      <a href="{{ p.url | safe }}">
-        <span class="item-title">{{ p.name }}</span>
-        <span class="item-desc">{{ p.description }}</span>
+      <a class="row" href="{{ p.url | safe }}">
+        <span class="row-main">
+          <span class="row-title">{{ p.name }}</span>
+          <span class="row-desc">{{ p.description }}</span>
+        </span>
       </a>
     </li>
     {%- endfor %}
+    {%- if section.extra.open_source %}
+    <li>
+      <div class="row is-static">
+        <span class="row-main">
+          <span class="row-title">Open source</span>
+          <span class="row-desc">Contributions to {% for o in section.extra.open_source %}{% if loop.last and not loop.first %}and {% endif %}<a href="{{ o.url | safe }}">{{ o.name }}</a>{% if not loop.last %}{% if section.extra.open_source | length > 2 %}, {% else %} {% endif %}{% endif %}{% endfor %}</span>
+        </span>
+      </div>
+    </li>
+    {%- endif %}
   </ul>
-</section>
-{%- endif %}
+</div>
 
-{% set posts = get_section(path="posts/_index.md") %}
-<section>
-  <h2>Writing</h2>
-  {%- if posts.pages | length > 0 %}
-  {{ m::post_items(pages=posts.pages | slice(end=10)) }}
-  {%- if posts.pages | length > 10 %}
-  <p><a href="{{ posts.permalink | safe }}">All writing</a></p>
-  {%- endif %}
-  {%- else %}
-  <p class="muted">The first post is in progress.</p>
-  {%- endif %}
-</section>
-
-{{ m::more(links=config.extra.links, resume=config.extra.resume) }}
+{{ m::elsewhere(links=config.extra.links, resume=config.extra.resume) }}
 {% endblock content %}

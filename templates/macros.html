@@ -1,24 +1,29 @@
-{% macro post_items(pages, dates=false) %}
-<ul class="items">
+{#- A row is a link spanning the content column: title, optional description, value on the right. -#}
+{% macro post_rows(pages, year_only=true) %}
+<ul class="rows">
   {%- for page in pages %}
   <li>
-    <a href="{{ page.permalink | safe }}">
-      <span class="item-title">{{ page.title }}{% if page.draft %} <span class="draft">Draft</span>{% endif %}</span>
-      {%- if dates %}
-      <time class="item-date" datetime="{{ page.date }}">{{ page.date | date(format="%b %-d, %Y") }}</time>
-      {%- endif %}
-      {%- if page.description %}
-      <span class="item-desc">{{ page.description }}</span>
-      {%- endif %}
+    <a class="row" href="{{ page.permalink | safe }}">
+      <span class="row-main">
+        <span class="row-title">{{ page.title }}{% if page.draft %}<span class="draft">Draft</span>{% endif %}</span>
+        {%- if page.description %}<span class="row-desc">{{ page.description }}</span>{% endif %}
+      </span>
+      <time class="row-end" datetime="{{ page.date }}">{% if year_only %}{{ page.date | date(format="%b %Y") }}{% else %}{{ page.date | date(format="%b %-d") }}{% endif %}</time>
     </a>
   </li>
   {%- endfor %}
 </ul>
-{% endmacro post_items %}
+{% endmacro post_rows %}
 
-{% macro more(links, resume) %}
-<section>
-  <h2>More</h2>
-  <p>Find me on {% for link in links %}{% if loop.last %}and {% endif %}<a href="{{ link.url | safe }}" rel="me noopener">{{ link.name }}</a>{% if not loop.last %}, {% endif %}{% endfor %}. Read my <a href="{{ get_url(path=resume) | safe }}">resume</a>, or follow new writing with <a href="{{ get_url(path='posts/atom.xml') | safe }}">RSS</a>.</p>
-</section>
-{% endmacro more %}
+{% macro elsewhere(links, resume) %}
+<div class="block">
+  <h2 class="label">Elsewhere</h2>
+  <ul class="inline-links">
+    {%- for link in links %}
+    <li><a href="{{ link.url | safe }}" rel="me noopener">{{ link.name }}</a></li>
+    {%- endfor %}
+    <li><a href="{{ get_url(path=resume) | safe }}">Resume</a></li>
+    <li><a href="{{ get_url(path='posts/atom.xml') | safe }}">RSS</a></li>
+  </ul>
+</div>
+{% endmacro elsewhere %}
