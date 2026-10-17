@@ -1,24 +1,15 @@
 +++
-title = "Home"
-template = "section.html"
+title = "Jonathan Esperanza"
+
+[extra]
+projects = [
+    { name = "rust-build-bench", url = "https://github.com/jesperanzasolo/rust-build-bench", description = "How much CI time Rust monorepo build tools save on real pull requests" },
+]
+open_source = [
+    { name = "Apache Beam", url = "https://beam.apache.org/" },
+    { name = "Trino", url = "https://trino.io/" },
+    { name = "Bento", url = "https://github.com/warpstreamlabs/bento" },
+]
 +++
 
-# Hello!
-I'm Jonathan Esperanza, a software engineer.
-* I am currently at Credit Karma, working on the Recommendations Platform.
-* I spend time reading articles and books on the topics of distributed systems, machine learning, and data. I've recently started [posting notes on Bluesky](https://bsky.app/profile/jonathanesperanza.com)!
-* I have worked on open source projects including [Apache Beam](https://beam.apache.org/) and [Trino](https://trino.io/).
-
-## Personal life
-Usually playing soccer or video games, watching movies, building a side project, or spending time with friends and family.
-
-## Work
-Experienced in recommendation systems and large-scale data processing. 
-
-Day-to-day work:
-- Innovating ML applications
-- Optimizing infrastructure cost
-- Enhancing system performance
-
-## Recent Bluesky posts
-{{ bluesky() }}
+I build {% term(id="infra", label="ML infrastructure", detail="Feature pipelines, model serving, evals, and the platforms that let other teams ship models without rebuilding the plumbing.") %}ML infrastructure{% end %}. Right now that’s the {% term(id="memory", label="Memory Platform, Yahoo", detail="Extracts structured memory from high-volume behavioral event streams, then retrieves the right memories for a query with hybrid keyword and semantic search.") %}Memory Platform{% end %} at Yahoo. Before that, {% term(id="ck", label="Credit Karma, 2022 to 2025", detail="Recommendations Platform: feature pipelines, model serving, and ranking. Grew from SWE I to SWE IV.") %}recommendations at Credit Karma{% end %}.

@@ -1,11 +1,28 @@
-{% extends "index.html" %}
+{% extends "base.html" %}
+{% import "macros.html" as m %}
 {% block content %}
-      <article>
-        <h1><a href="{{ current_url | safe }}">{{ page.title | safe }}</a></h1>
-        <small>
-          <time datetime="{{ page.date }}">{{ page.date | date(format="%B %d, %Y") }}</time>
-          by <a href="{{ config.base_url | safe }}">{{ config.extra.d3_author | safe }}</a>
-        </small>
-        {{ page.content | safe }}
-      </article>
+<article>
+  <header class="page-head">
+    {%- if page.draft %}<p class="draft-note">Draft. Only visible in local preview.</p>{% endif %}
+    <h1 class="title">{{ page.title }}</h1>
+    <p class="quiet sub meta"><time datetime="{{ page.date }}">{{ page.date | date(format="%B %-d, %Y") }}</time>
+      {%- if page.updated %}, updated <time datetime="{{ page.updated }}">{{ page.updated | date(format="%B %-d, %Y") }}</time>{% endif %}, {{ page.reading_time }} min read</p>
+  </header>
+  <div class="prose">
+    {{ page.content | safe }}
+  </div>
+</article>
+
+{%- if page.lower or page.higher %}
+<section class="block">
+  <h2 class="label">Keep reading</h2>
+  <ul class="rows">
+    {%- for p in [page.higher, page.lower] %}{% if p %}
+    <li><a class="row" href="{{ p.permalink | safe }}"><span class="row-main"><span class="row-title">{{ p.title }}</span>{% if p.description %}<span class="row-desc">{{ p.description }}</span>{% endif %}</span><time class="row-end" datetime="{{ p.date }}">{{ p.date | date(format="%b %Y") }}</time></a></li>
+    {%- endif %}{% endfor %}
+  </ul>
+</section>
+{%- endif %}
+
+{{ m::elsewhere(links=config.extra.links, resume=config.extra.resume) }}
 {% endblock content %}

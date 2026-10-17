@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+# Publish a draft: clears the draft flag, sets the date to today,
+# checks the site builds, then commits and pushes to main (which deploys).
+#   bin/publish <slug>          publish content/posts/<slug>/index.md
+#   bin/publish <slug> --no-push  commit only
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+if ! zola --version 2>/dev/null | grep -q ' 0\.21\.'; then
+  echo "warning: this site builds with Zola 0.21 (found: $(zola --version 2>/dev/null || echo none)). See README." >&2
+fi
+
+if [ $# -lt 1 ]; then
+  echo "usage: bin/publish <slug> [--no-push]" >&2
+  echo "drafts:" >&2
+  grep -l '^draft = true' content/posts/*/index.md content/posts/*.md 2>/dev/null | sed 's/^/  /' >&2 || true
+  exit 1
+fi
+
+slug="${1%/}"
+push=1
+[ "${2:-}" = "--no-push" ] && push=0
+
+file="content/posts/$slug/index.md"
+[ -f "$file" ] || file="content/posts/$slug.md"
+if [ ! -f "$file" ]; then
+  echo "no post found for '$slug'" >&2
+  exit 1
+fi
+
+title="$(sed -n 's/^title = "\(.*\)"$/\1/p' "$file" | head -1)"
+desc="$(sed -n 's/^description = "\(.*\)"$/\1/p' "$file" | head -1)"
+if [ -z "$desc" ]; then
+  echo "warning: no description set. It shows under the title in lists and link previews." >&2
+fi
+
+tmp="$(mktemp)"
+awk -v today="$(date +%F)" '
+  BEGIN { fm = 0 }
+  /^\+\+\+$/ { fm++; print; next }
+  fm == 1 && /^draft = / { next }
+  fm == 1 && /^date = / { print "date = " today; next }
+  { print }
+' "$file" > "$tmp"
+mv "$tmp" "$file"
+
+zola check --skip-external-links >/dev/null
+echo "Build ok."
+
+dir="$(dirname "$file")"
+if [ "$dir" = "content/posts" ]; then dir="$file"; fi
+git add -- "$dir"
+git commit -q -m "Publish: $title" -- "$dir"
+echo "Committed \"$title\"."
+
+if [ "$push" = 1 ]; then
+  git push -q origin HEAD:main
+  echo "Pushed. It will be live at https://jonathanesperanza.com/posts/$slug/ in a minute or two."
+fi

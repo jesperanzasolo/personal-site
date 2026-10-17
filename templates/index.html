@@ -1,65 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
-    <title>{% if page.title %}{{ page.title }} :: {% endif %}{{ config.title }}</title>
-    <link rel="stylesheet" href="{{ get_url(path="global.css") | safe }}">
-    <meta name="description" content="{% if page.description %}{{ page.description | safe }}{% else %}{{ config.description | safe }}{% endif %}">
-    <meta property="og:title" content="{% if page.title %}{{ page.title | safe }} :: {% endif %}{{ config.title | safe }}">
-    <meta property="og:description" content="{% if page.description %}{{ page.description | safe }}{% else %}{{ config.description | safe }}{% endif %}">
-    <meta property="og:type" content="website">
-    {% if current_url %}
-    <meta property="og:url" content="{{ current_url | safe }}">
-    <link rel="canonical" href="{{ current_url | safe }}">
-    {% endif %}
-    <link rel="icon" href="{{ config.extra.d3_icon | safe }}">
-    <meta name="theme-color" content="#1F1E1E">
-  </head>
-  <body>
-    {% if not config.extra.force_theme %}
-    <script>
-      const theme = sessionStorage.getItem('theme');
-      const match = window.matchMedia("(prefers-color-scheme: dark)").matches
-      if ((theme && theme == 'dark') || (!theme && match)) {
-        document.body.classList.add('dark');
-      }
-    </script>
-    {% endif %}
-    <header>
-      <a href="/" title="Home" rel="home">{{ config.extra.name | safe }}</a>
-    </header>
-    <div class="nav">
-      <hr>
-      <section class="links">
-        <nav>
-          {% for link in config.extra.d3_nav %}
-            <a href="{{ link.path | safe }}">{{ link.name }}</a>
-          {% endfor %}
-        </nav>
-        <div class="right">
-          {% for link in config.extra.links %}
-          <a href="{{ link.url }}" aria-label="{{ link.name }}" target="_blank" rel='noreferrer noopener'>
-            {% set icon_path = "static/icon/" ~ link.icon ~ ".svg" %}
-            {% set icon = load_data(path=icon_path) %}
-            {{ icon | safe }}
-          </a>
-          {% endfor %}
-          {% if not config.extra.force_theme %}
-          {% set moon_icon = load_data(path="static/icon/moon.svg") %}
-          {% set sun_icon = load_data(path="static/icon/sun.svg") %}
-          <button id="theme-toggle" aria-label="theme switch">
-            <span class="moon-icon">{{ moon_icon | safe }}</span>
-            <span class="sun-icon">{{ sun_icon | safe }}</span>
-          </button>
-          {% endif %}
-        </div>
-      </section>
-      <hr>
+{% extends "base.html" %}
+{% import "macros.html" as m %}
+{% block content %}
+<section class="lead">
+  {{ section.content | safe }}
+  <div class="term-panel" id="term-panel" aria-live="polite">
+    <div class="term-panel-inner">
+      <p class="term-label"></p>
+      <p class="term-text"></p>
     </div>
-    <main>
-      {% block content %}{% endblock content %}
-    </main>
-    <script src="/js/main.js"></script>
-  </body>
-</html>
+  </div>
+</section>
+
+{% set posts = get_section(path="posts/_index.md") %}
+<section class="block">
+  <h2 class="label"><a href="{{ posts.permalink | safe }}">Writing</a></h2>
+  {%- if posts.pages | length > 0 %}
+  {{ m::post_rows(pages=posts.pages | slice(end=6)) }}
+  {%- if posts.pages | length > 6 %}
+  <p class="after"><a href="{{ posts.permalink | safe }}">All {{ posts.pages | length }} posts</a></p>
+  {%- endif %}
+  {%- else %}
+  <p class="quiet">First post coming soon. Subscribe with <a href="{{ get_url(path='posts/atom.xml') | safe }}">RSS</a> to get it.</p>
+  {%- endif %}
+</section>
+
+<section class="block">
+  <h2 class="label">Projects</h2>
+  <ul class="rows">
+    {%- for p in section.extra.projects %}
+    <li>
+      <a class="row" href="{{ p.url | safe }}">
+        <span class="row-main">
+          <span class="row-title">{{ p.name }}</span>
+          <span class="row-desc">{{ p.description }}</span>
+        </span>
+      </a>
+    </li>
+    {%- endfor %}
+    {%- if section.extra.open_source %}
+    <li>
+      <div class="row is-static">
+        <span class="row-main">
+          <span class="row-title">Open source</span>
+          <span class="row-desc">Contributions to {% for o in section.extra.open_source %}{% if loop.last and not loop.first %}and {% endif %}<a href="{{ o.url | safe }}">{{ o.name }}</a>{% if not loop.last %}{% if section.extra.open_source | length > 2 %}, {% else %} {% endif %}{% endif %}{% endfor %}</span>
+        </span>
+      </div>
+    </li>
+    {%- endif %}
+  </ul>
+</section>
+
+{{ m::elsewhere(links=config.extra.links, resume=config.extra.resume) }}
+<script src="{{ get_url(path='js/terms.js', cachebust=true) | safe }}" defer></script>
+{% endblock content %}

@@ -1,0 +1,28 @@
+{% macro post_rows(pages, date_format="%b %Y") %}
+<ul class="rows">
+  {%- for page in pages %}
+  <li>
+    <a class="row" href="{{ page.permalink | safe }}">
+      <span class="row-main">
+        <span class="row-title">{{ page.title }}{% if page.draft %}<span class="draft">Draft</span>{% endif %}</span>
+        {%- if page.description %}<span class="row-desc">{{ page.description }}</span>{% endif %}
+      </span>
+      <time class="row-end" datetime="{{ page.date }}">{{ page.date | date(format=date_format) }}</time>
+    </a>
+  </li>
+  {%- endfor %}
+</ul>
+{% endmacro post_rows %}
+
+{% macro elsewhere(links, resume) %}
+<section class="block">
+  <h2 class="label">Elsewhere</h2>
+  <ul class="inline-links">
+    {%- for link in links %}
+    <li><a href="{{ link.url | safe }}" rel="me noopener">{{ link.name }}</a></li>
+    {%- endfor %}
+    <li><a href="{{ get_url(path=resume) | safe }}">Resume</a></li>
+    <li><a href="{{ get_url(path='posts/atom.xml') | safe }}">RSS</a></li>
+  </ul>
+</section>
+{% endmacro elsewhere %}

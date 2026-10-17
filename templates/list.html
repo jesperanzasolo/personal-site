@@ -1,8 +1,21 @@
-{% extends "index.html" %}
+{% extends "base.html" %}
+{% import "macros.html" as m %}
 {% block content %}
-      <ul class="date-list">
-      {% for page in section.pages %}
-        <li>{{ page.date | date(format="%d %b %Y") }}<a class="list-post-title" href="{{ page.permalink | safe }}">{{ page.title | safe }}</a></li>
-      {% endfor %}
-      </ul>
+<header class="page-head">
+  <h1 class="title">{{ section.title }}</h1>
+  {%- if section.description %}<p class="quiet sub">{{ section.description }}</p>{% endif %}
+</header>
+
+{%- if section.pages | length > 0 %}
+{%- set_global years = [] %}
+{%- for page in section.pages %}{% set y = page.date | date(format="%Y") %}{% if y not in years %}{% set_global years = years | concat(with=y) %}{% endif %}{% endfor %}
+{%- for y in years %}
+<section class="block year">
+  <h2 class="label">{{ y }}</h2>
+  {{ m::post_rows(pages=section.pages | filter(attribute="year", value=y | int), date_format="%b %-d") }}
+</section>
+{%- endfor %}
+{%- else %}
+<p class="quiet">First post coming soon. Subscribe with <a href="{{ get_url(path='posts/atom.xml') | safe }}">RSS</a> to get it.</p>
+{%- endif %}
 {% endblock content %}

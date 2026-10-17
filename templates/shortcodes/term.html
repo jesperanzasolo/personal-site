@@ -1,0 +1,3 @@
+{#- An annotated phrase in the homepage intro.
+    Usage in markdown: {% term(id="memory", label="Memory Platform, Yahoo", detail="...") %}Memory Platform{% end %} -#}
+<button type="button" class="term" data-term="{{ id }}" aria-expanded="false" aria-controls="term-panel">{{ body }}</button><span class="term-source" id="term-{{ id }}" data-label="{{ label }}" hidden>{{ detail }}</span>
