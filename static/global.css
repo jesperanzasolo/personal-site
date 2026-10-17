@@ -207,7 +207,8 @@ article + .block { margin-top: 88px; }
 .prose ul, .prose ol { padding-left: 1.2em; }
 .prose li + li { margin-top: 0.4em; }
 .prose li::marker { color: var(--muted); }
-.prose blockquote { margin-left: 0; margin-right: 0; padding-left: 18px; border-left: 2px solid var(--line); color: var(--ink); }
+.prose blockquote { margin: 1.6em 0; padding: 0 1.2em; color: var(--ink); font-size: 19px; line-height: 1.55; letter-spacing: -0.008em; }
+.prose blockquote > * + * { margin-top: 0.8em; }
 .prose hr { border: 0; height: 1px; background: var(--line); margin: 2.6em 0; }
 .prose img, .prose video, .prose picture { display: block; max-width: 100%; height: auto; border-radius: 10px; }
 .prose figure { margin-left: 0; margin-right: 0; }
@@ -287,7 +288,7 @@ pre.z-code { color: var(--ink); background: var(--code-bg); }
   color: var(--ink);
   cursor: pointer;
 }
-.jump-opt[aria-selected="true"] { background: var(--hover); box-shadow: inset 2px 0 0 var(--accent); }
+.jump-opt[aria-selected="true"] { background: var(--hover); }
 .jump-title { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; }
 .jump-hint { flex: 0 1 auto; max-width: 45%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted); font-size: 13.5px; }
 .jump-close { flex: none; padding: 0; border: 0; background: none; color: var(--muted); font: inherit; font-size: 14px; cursor: pointer; }
