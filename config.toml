@@ -24,6 +24,6 @@ role = "ML infrastructure engineer"
 resume = "/files/cv.pdf"
 links = [
     { name = "GitHub", url = "https://github.com/jesperanzasolo" },
-    { name = "X", url = "https://x.com/jesperanzasolo" },
+    { name = "Twitter", url = "https://x.com/jesperanzasolo" },
     { name = "LinkedIn", url = "https://www.linkedin.com/in/jonathanesperanza/" },
 ]
