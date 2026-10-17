@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
-<header class="page-head">
+<header class="intro">
+  <a class="home" href="{{ config.base_url | safe }}">{{ config.extra.name }}</a>
   <h1>Page not found</h1>
-  <p class="lede">There’s nothing at this address. It may have moved or never existed.</p>
 </header>
-<p><a href="{{ config.base_url | safe }}">Go to the homepage</a> or <a href="{{ get_url(path='posts/') | safe }}">browse the writing</a>.</p>
+<p>There’s nothing at this address. Go to the <a href="{{ config.base_url | safe }}">homepage</a>.</p>
 {% endblock content %}

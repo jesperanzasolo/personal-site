@@ -1,21 +1,44 @@
 {% extends "base.html" %}
 {% import "macros.html" as m %}
-{% block body_class %}home{% endblock body_class %}
 {% block content %}
-<section class="intro">
+<header class="intro">
+  <h1>{{ config.extra.name }}</h1>
+  <p class="muted">{{ section.extra.tagline }}</p>
+</header>
+
+<section>
+  <h2>Today</h2>
   {{ section.content | safe }}
 </section>
 
+{%- if section.extra.projects %}
+<section>
+  <h2>Projects</h2>
+  <ul class="items">
+    {%- for p in section.extra.projects %}
+    <li>
+      <a href="{{ p.url | safe }}">
+        <span class="item-title">{{ p.name }}</span>
+        <span class="item-desc">{{ p.description }}</span>
+      </a>
+    </li>
+    {%- endfor %}
+  </ul>
+</section>
+{%- endif %}
+
 {% set posts = get_section(path="posts/_index.md") %}
-<section class="recent" aria-labelledby="recent-h">
-  <h2 id="recent-h" class="section-h"><a href="{{ posts.permalink | safe }}">Writing</a></h2>
+<section>
+  <h2>Writing</h2>
   {%- if posts.pages | length > 0 %}
-  {{ m::post_list(pages=posts.pages | slice(end=6), show_year=false) }}
-  {%- if posts.pages | length > 6 %}
-  <p class="more"><a href="{{ posts.permalink | safe }}">All {{ posts.pages | length }} posts</a></p>
+  {{ m::post_items(pages=posts.pages | slice(end=10)) }}
+  {%- if posts.pages | length > 10 %}
+  <p><a href="{{ posts.permalink | safe }}">All writing</a></p>
   {%- endif %}
   {%- else %}
-  <p class="empty">Nothing published yet. The first post is in progress. Follow along with <a href="{{ get_url(path='posts/atom.xml') | safe }}">RSS</a>.</p>
+  <p class="muted">The first post is in progress.</p>
   {%- endif %}
 </section>
+
+{{ m::more(links=config.extra.links, resume=config.extra.resume) }}
 {% endblock content %}

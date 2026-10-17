@@ -20,11 +20,7 @@ external_links_target_blank = false
 
 [extra]
 name = "Jonathan Esperanza"
-nav = [
-    { name = "Writing", path = "/posts/" },
-    { name = "Projects", path = "/projects/" },
-    { name = "Resume", path = "/files/cv.pdf" },
-]
+resume = "/files/cv.pdf"
 links = [
     { name = "GitHub", url = "https://github.com/jesperanzasolo" },
     { name = "X", url = "https://x.com/jesperanzasolo" },

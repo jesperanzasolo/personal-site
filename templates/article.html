@@ -1,28 +1,29 @@
 {% extends "base.html" %}
-{% block body_class %}post{% endblock body_class %}
+{% import "macros.html" as m %}
 {% block content %}
-<article class="article">
-  <header class="article-head">
+<article>
+  <header class="intro">
+    <a class="home" href="{{ config.base_url | safe }}">{{ config.extra.name }}</a>
     {%- if page.draft %}
-    <p class="draft-note">Draft. This post is only visible in local preview and will not be published.</p>
+    <p class="draft-note">Draft. Only visible in local preview.</p>
     {%- endif %}
     <h1>{{ page.title }}</h1>
-    <p class="meta">
-      <time datetime="{{ page.date }}">{{ page.date | date(format="%B %-d, %Y") }}</time>, {{ page.reading_time }} min read
-      {%- if page.updated %}, updated <time datetime="{{ page.updated }}">{{ page.updated | date(format="%B %-d, %Y") }}</time>{% endif %}
-    </p>
+    <p class="muted"><time datetime="{{ page.date }}">{{ page.date | date(format="%B %-d, %Y") }}</time>
+      {%- if page.updated %}, updated <time datetime="{{ page.updated }}">{{ page.updated | date(format="%B %-d, %Y") }}</time>{% endif %}</p>
   </header>
   <div class="prose">
     {{ page.content | safe }}
   </div>
-  <footer class="article-foot">
-    {%- if page.lower or page.higher %}
-    <nav class="pager" aria-label="More writing">
-      {%- if page.higher %}<a rel="next" href="{{ page.higher.permalink | safe }}"><span>Newer</span>{{ page.higher.title }}</a>{% endif %}
-      {%- if page.lower %}<a rel="prev" href="{{ page.lower.permalink | safe }}"><span>Older</span>{{ page.lower.title }}</a>{% endif %}
-    </nav>
-    {%- endif %}
-    <p><a href="{{ get_url(path='posts/') | safe }}">All writing</a></p>
-  </footer>
 </article>
+{% if page.lower or page.higher %}
+<section>
+  <h2>More writing</h2>
+  <ul class="items">
+    {%- for p in [page.higher, page.lower] %}{% if p %}
+    <li><a href="{{ p.permalink | safe }}"><span class="item-title">{{ p.title }}</span>{% if p.description %}<span class="item-desc">{{ p.description }}</span>{% endif %}</a></li>
+    {%- endif %}{% endfor %}
+  </ul>
+</section>
+{% endif %}
+{{ m::more(links=config.extra.links, resume=config.extra.resume) }}
 {% endblock content %}

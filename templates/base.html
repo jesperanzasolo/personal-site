@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="{{ lang | default(value='en') }}">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  {%- block meta %}
   {%- if page and page.title %}{% set doc_title = page.title ~ " | " ~ config.title %}{% elif section and section.title and section.path != "/" %}{% set doc_title = section.title ~ " | " ~ config.title %}{% else %}{% set doc_title = config.title %}{% endif %}
   {%- if page and page.description %}{% set doc_desc = page.description %}{% elif section and section.description %}{% set doc_desc = section.description %}{% else %}{% set doc_desc = config.description %}{% endif %}
   <title>{{ doc_title }}</title>
@@ -19,45 +18,15 @@
   {%- if page and page.date %}
   <meta property="article:published_time" content="{{ page.date }}">
   {%- endif %}
-  {%- endblock meta %}
-  <link rel="alternate" type="application/atom+xml" title="{{ config.title }}: Writing" href="{{ get_url(path='posts/atom.xml') | safe }}">
+  <link rel="alternate" type="application/atom+xml" title="{{ config.title }}" href="{{ get_url(path='posts/atom.xml') | safe }}">
   <link rel="icon" href="{{ get_url(path='favicon.svg') | safe }}" type="image/svg+xml">
-  <link rel="preload" href="{{ get_url(path='fonts/alegreya.woff') | safe }}" as="font" type="font/woff" crossorigin>
   <link rel="stylesheet" href="{{ get_url(path='global.css', cachebust=true) | safe }}">
-  <meta name="theme-color" content="#EDEFEA" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#12171D" media="(prefers-color-scheme: dark)">
-  <script>
-    try { var t = localStorage.getItem("theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch (e) {}
-  </script>
+  <meta name="theme-color" content="#fcfcfc" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)">
 </head>
-<body class="{% block body_class %}{% endblock body_class %}">
-  <a class="skip" href="#main">Skip to content</a>
-  <header class="site-head">
-    <a class="mark" href="{{ config.base_url | safe }}" rel="home">
-      {% include "partials/seal.html" %}
-      <span>{{ config.extra.name }}</span>
-    </a>
-    <nav aria-label="Site">
-      {%- for link in config.extra.nav %}
-      {%- set here = current_path and link.path != "/files/cv.pdf" and current_path is starting_with(link.path) %}
-      <a href="{{ link.path | safe }}"{% if here %} aria-current="page"{% endif %}>{{ link.name }}</a>
-      {%- endfor %}
-      <button class="theme" type="button" aria-label="Switch color theme" hidden>Dark</button>
-    </nav>
-  </header>
-
-  <main id="main">
+<body>
+  <main>
     {% block content %}{% endblock content %}
   </main>
-
-  <footer class="site-foot">
-    <nav aria-label="Elsewhere">
-      {%- for link in config.extra.links %}
-      <a href="{{ link.url | safe }}" rel="me noopener">{{ link.name }}</a>
-      {%- endfor %}
-      <a href="{{ get_url(path='posts/atom.xml') | safe }}">RSS</a>
-    </nav>
-  </footer>
-  <script src="{{ get_url(path='js/main.js', cachebust=true) | safe }}" defer></script>
 </body>
 </html>

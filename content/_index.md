@@ -1,7 +1,16 @@
 +++
 title = "Jonathan Esperanza"
+
+[extra]
+tagline = "Software engineer, ML infrastructure"
+projects = [
+    { name = "rust-build-bench", url = "https://github.com/jesperanzasolo/rust-build-bench", description = "Benchmarking Rust monorepo build tools on real pull requests" },
+    { name = "Apache Beam", url = "https://beam.apache.org/", description = "Contributor to the batch and streaming data processing model" },
+    { name = "Trino", url = "https://trino.io/", description = "Contributor to the distributed SQL query engine" },
+    { name = "Bento", url = "https://github.com/warpstreamlabs/bento", description = "Contributor to the stream processor for config-driven pipelines" },
+]
 +++
 
-I build ML infrastructure. At Yahoo that means the Memory Platform, which turns high-volume behavioral event streams into structured memory that AI features can use to personalize.
+I build ML infrastructure at Yahoo. I work on the Memory Platform, which turns high-volume behavioral event streams into structured memory that AI features use to personalize.
 
-Before Yahoo I spent three years on the Recommendations Platform at Credit Karma, owning feature pipelines, model serving, and ranking. I've contributed to [Apache Beam](https://beam.apache.org/), [Trino](https://trino.io/), and [Bento](https://github.com/warpstreamlabs/bento), and I write here about distributed systems and the machinery behind ML products. Away from a keyboard, I'm usually playing soccer.
+Before that, I spent three years on the Recommendations Platform at Credit Karma, working on feature pipelines, model serving, and ranking.
