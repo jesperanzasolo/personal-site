@@ -25,9 +25,11 @@
   <meta name="theme-color" content="#0B0C0E" media="(prefers-color-scheme: dark)">
 </head>
 <body>
+  {%- block masthead %}
   <header class="masthead">
     <a class="name" href="{{ config.base_url | safe }}" rel="home">{{ config.extra.name }}</a>
   </header>
+  {%- endblock masthead %}
   <main>
     {% block content %}{% endblock content %}
   </main>

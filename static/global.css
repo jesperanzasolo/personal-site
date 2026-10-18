@@ -111,15 +111,26 @@ kbd {
 }
 .name { color: var(--ink); font-weight: 600; letter-spacing: -0.01em; text-decoration: none; }
 
-/* Lead: the annotated intro */
+/* Lead: the annotated intro. The name opens it on the homepage. */
+.intro-name {
+  margin: 0 0 20px;
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.lead { padding-top: 64px; }
+/* One flowing intro: every paragraph the same voice, no section labels */
 .lead > p {
   color: var(--ink);
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 450;
   line-height: 1.6;
-  letter-spacing: -0.016em;
+  letter-spacing: -0.012em;
   text-wrap: pretty;
 }
+.lead > p + p,
+.lead > .term-panel + p { margin-top: 18px; }
 .term {
   display: inline;
   padding: 0;
@@ -276,7 +287,8 @@ pre.z-code { color: var(--ink); background: var(--code-bg); }
 @media (max-width: 600px) {
   .masthead { padding-top: 24px; margin-bottom: 56px; }
   .block { margin-top: 52px; }
-  .lead > p { font-size: 20px; }
+  .lead > p { font-size: 18px; }
+  .lead { padding-top: 40px; }
   .title { font-size: 26px; }
   .row { grid-template-columns: minmax(0, 1fr); gap: 2px; }
   .row-end { font-size: 13px; }
