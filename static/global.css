@@ -113,15 +113,16 @@ kbd {
 
 /* Lead: the annotated intro. The name opens it on the homepage. */
 .intro-name {
-  margin: 0 0 20px;
+  margin: 0;
   color: var(--ink);
   font-size: 16px;
   font-weight: 600;
   letter-spacing: -0.01em;
 }
+.intro-role { margin: 2px 0 20px; color: var(--muted); font-size: 14px; }
 .lead { padding-top: 64px; }
 /* One flowing intro: every paragraph the same voice, no section labels */
-.lead > p {
+.lead > p:not(.intro-role) {
   color: var(--ink);
   font-size: 20px;
   font-weight: 450;
@@ -129,7 +130,7 @@ kbd {
   letter-spacing: -0.012em;
   text-wrap: pretty;
 }
-.lead > p + p,
+.lead > p:not(.intro-role) + p,
 .lead > .term-panel + p { margin-top: 18px; }
 .term {
   display: inline;
@@ -287,7 +288,7 @@ pre.z-code { color: var(--ink); background: var(--code-bg); }
 @media (max-width: 600px) {
   .masthead { padding-top: 24px; margin-bottom: 56px; }
   .block { margin-top: 52px; }
-  .lead > p { font-size: 18px; }
+  .lead > p:not(.intro-role) { font-size: 18px; }
   .lead { padding-top: 40px; }
   .title { font-size: 26px; }
   .row { grid-template-columns: minmax(0, 1fr); gap: 2px; }
