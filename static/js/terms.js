@@ -1,15 +1,17 @@
-// Annotated intro: one detail card below the intro. Clicking a dotted phrase opens it;
-// clicking another phrase morphs the same card to the new content in place, so the
-// page never jumps between lines. Clicking the open phrase again, or Esc, closes it.
+// Annotated intro: one detail card below the intro.
+// Open: the card grows from 0 to its measured height. Switch: it eases to the new
+// content's height while the new text fades in through a slight blur. Close: it
+// shrinks back to 0, keeping its content until it is gone. Heights are set on the
+// element and animated by CSS transitions, so rapid clicks retarget smoothly.
 (function () {
   var panel = document.getElementById("term-panel");
   var terms = document.querySelectorAll(".term");
   if (!panel || !terms.length) return;
   var inner = panel.querySelector(".term-panel-inner");
+  var card = panel.querySelector(".term-card");
   var label = panel.querySelector(".term-label");
   var text = panel.querySelector(".term-text");
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
-  var ease = "cubic-bezier(0.2, 0.8, 0.2, 1)";
   var current = null;
 
   function fill(source) {
@@ -17,11 +19,16 @@
     text.textContent = source.textContent;
   }
 
+  function fitHeight() {
+    panel.style.height = inner.offsetHeight + "px";
+  }
+
   function close() {
     if (!current) return;
     current.setAttribute("aria-expanded", "false");
     current = null;
     panel.classList.remove("is-open");
+    panel.style.height = "0px";
   }
 
   function open(btn) {
@@ -32,22 +39,16 @@
     btn.setAttribute("aria-expanded", "true");
     current = btn;
 
-    if (!switching) {
-      fill(source);
-      panel.classList.add("is-open");
-      return;
-    }
-
-    // Already open: keep the card where it is, swap its content, and ease its
-    // height from the old content to the new while the new text fades in.
-    var from = inner.offsetHeight;
     fill(source);
-    var to = inner.offsetHeight;
-    if (reduce.matches || typeof inner.animate !== "function") return;
-    inner.animate([{ height: from + "px" }, { height: to + "px" }], { duration: 240, easing: ease });
-    [label, text].forEach(function (el) {
-      el.animate([{ opacity: 0, transform: "translateY(3px)" }, { opacity: 1, transform: "none" }], { duration: 220, easing: ease });
-    });
+    panel.classList.add("is-open");
+    fitHeight();
+
+    if (switching && typeof card.animate === "function") {
+      var frames = reduce.matches
+        ? [{ opacity: 0 }, { opacity: 1 }]
+        : [{ opacity: 0, filter: "blur(2px)" }, { opacity: 1, filter: "blur(0)" }];
+      card.animate(frames, { duration: 180, easing: "cubic-bezier(0.23, 1, 0.32, 1)" });
+    }
   }
 
   terms.forEach(function (btn) {
@@ -56,4 +57,5 @@
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape" && current) { var b = current; close(); b.focus(); }
   });
+  window.addEventListener("resize", function () { if (current) fitHeight(); });
 })();
