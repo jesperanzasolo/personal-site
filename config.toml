@@ -1,6 +1,6 @@
 base_url = "https://jonathanesperanza.com/"
 title = "Jonathan Esperanza"
-description = "Jonathan Esperanza writes about ML infrastructure, recommendation systems, and distributed systems."
+description = "Jonathan Esperanza is an applied AI engineer building production LLM systems."
 author = "Jonathan Esperanza"
 default_language = "en"
 
@@ -20,7 +20,6 @@ external_links_target_blank = false
 
 [extra]
 name = "Jonathan Esperanza"
-role = "ML infrastructure engineer"
 resume = "/files/cv.pdf"
 links = [
     { name = "GitHub", url = "https://github.com/jesperanzasolo" },
