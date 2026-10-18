@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% import "macros.html" as m %}
+{% block masthead %}{% endblock masthead %}
 {% block content %}
 <section class="lead">
+  <h1 class="intro-name">{{ config.extra.name }}</h1>
   {{ section.content | safe }}
   <div class="term-panel" id="term-panel" aria-live="polite">
     <div class="term-panel-inner">

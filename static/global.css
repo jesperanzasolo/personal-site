@@ -111,14 +111,30 @@ kbd {
 }
 .name { color: var(--ink); font-weight: 600; letter-spacing: -0.01em; text-decoration: none; }
 
-/* Lead: the annotated intro */
-.lead > p {
+/* Lead: the annotated intro. The name opens it on the homepage. */
+.intro-name {
+  margin: 0 0 20px;
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.lead { padding-top: 64px; }
+.lead > p:first-of-type {
   color: var(--ink);
   font-size: 22px;
   font-weight: 450;
   line-height: 1.6;
   letter-spacing: -0.016em;
   text-wrap: pretty;
+}
+.lead > p + p { margin-top: 20px; }
+.lead > p { font-size: 17px; line-height: 1.7; text-wrap: pretty; }
+.lead > h2 {
+  margin: 48px 0 6px;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 400;
 }
 .term {
   display: inline;
@@ -276,7 +292,8 @@ pre.z-code { color: var(--ink); background: var(--code-bg); }
 @media (max-width: 600px) {
   .masthead { padding-top: 24px; margin-bottom: 56px; }
   .block { margin-top: 52px; }
-  .lead > p { font-size: 20px; }
+  .lead > p:first-of-type { font-size: 20px; }
+  .lead { padding-top: 40px; }
   .title { font-size: 26px; }
   .row { grid-template-columns: minmax(0, 1fr); gap: 2px; }
   .row-end { font-size: 13px; }

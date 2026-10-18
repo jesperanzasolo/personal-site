@@ -18,6 +18,13 @@
     var source = document.getElementById("term-" + btn.getAttribute("data-term"));
     if (!source) return;
     if (current) current.setAttribute("aria-expanded", "false");
+    // Show the card right under the paragraph that holds the phrase.
+    var para = btn.closest("p");
+    if (para && para.nextElementSibling !== panel) {
+      panel.classList.remove("is-open");
+      para.after(panel);
+      void panel.offsetHeight;
+    }
     label.textContent = source.getAttribute("data-label");
     text.textContent = source.textContent;
     btn.setAttribute("aria-expanded", "true");
