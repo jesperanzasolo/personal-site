@@ -62,6 +62,7 @@
   --indent: var(--s6);  /* lists and quotes */
   --top: var(--s16);    /* where the name sits, on every page */
   --section: var(--s16);
+  --end: var(--s32);    /* room after the last line, on pages longer than the window */
   --radius: 12px;       /* surfaces */
 
   /* Motion: one strong ease-out for anything that enters, leaves, or resizes.
@@ -105,9 +106,11 @@ html {
 }
 
 body {
+  position: relative;
+  display: flow-root;
   margin: 0 auto;
   max-width: calc(var(--page) + 2 * var(--pad));
-  padding: 0 var(--pad) var(--s32);
+  padding: 0 var(--pad);
   background: var(--bg);
   color: var(--text);
   font-family: var(--font);
@@ -116,6 +119,23 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-wrap: break-word;
+}
+
+/* End space. A page that fits in the window ends where its content ends, so it
+   never scrolls into nothing. A page that runs past the window gets --end to
+   finish in. The spacer is absolutely positioned so that 100% is the page's own
+   height: the moment that passes the window, the clamp flips from zero to the
+   full space. svh, not dvh, so a phone's collapsing toolbar cannot flip it
+   mid-scroll. */
+body::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 1px;
+  height: var(--end);
+  height: clamp(0px, (100% - 100svh) * 999, var(--end));
+  pointer-events: none;
 }
 
 ::selection { background: color-mix(in srgb, var(--accent) 20%, transparent); color: var(--ink); }
@@ -374,8 +394,7 @@ pre.z-code { color: var(--ink); background: var(--code-bg); }
 .prose .footnotes ol { margin: 0; padding-left: var(--indent); }
 
 @media (max-width: 600px) {
-  :root { --top: var(--s12); --section: var(--s12); }
-  body { padding-bottom: var(--s24); }
+  :root { --top: var(--s12); --section: var(--s12); --end: var(--s24); }
   .masthead { margin-bottom: var(--s12); }
   .lead > p:not(.intro-role) { font-size: 18px; line-height: 28px; }
   .page-head { margin-bottom: var(--s8); }
