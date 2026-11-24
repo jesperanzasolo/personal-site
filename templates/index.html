@@ -6,14 +6,6 @@
   <h1 class="intro-name">{{ config.extra.name }}</h1>
   <p class="intro-role">Software engineer</p>
   {{ section.content | safe }}
-  <div class="term-panel" id="term-panel" aria-live="polite">
-    <div class="term-panel-inner">
-      <div class="term-card">
-        <p class="term-label"></p>
-        <p class="term-text"></p>
-      </div>
-    </div>
-  </div>
 </section>
 
 {% set posts = get_section(path="posts/_index.md") %}

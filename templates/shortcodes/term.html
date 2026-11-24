@@ -1,3 +1,4 @@
-{#- An annotated phrase in the homepage intro.
+{#- An annotated phrase in the homepage intro. Its note opens in the margin beside
+    the phrase, or between the lines where there is no margin (static/js/terms.js).
     Usage in markdown: {% term(id="memory", label="Memory Platform, Yahoo", detail="...") %}Memory Platform{% end %} -#}
-<button type="button" class="term" data-term="{{ id }}" aria-expanded="false" aria-controls="term-panel">{{ body }}</button><span class="term-source" id="term-{{ id }}" data-label="{{ label }}" hidden>{{ detail }}</span>
+<button type="button" class="term" data-term="{{ id }}" aria-expanded="false">{{ body }}</button><span class="term-source" id="term-{{ id }}" data-label="{{ label }}" hidden>{{ detail }}</span>

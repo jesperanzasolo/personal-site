@@ -37,7 +37,7 @@ Markdown supports footnotes (`[^1]`), tables, fenced code with syntax highlighti
 | `content/posts/` | Writing. Feed at `/posts/atom.xml` |
 | `templates/` | Tera templates. `base.html` is the shell |
 | `static/global.css` | All styles. Tokens at the top: color, the type scale, the 4px spacing scale, and motion. Dark mode follows the system |
-| `templates/shortcodes/term.html` | Dotted phrases in the homepage intro. Each `{% term(id, label, detail) %}phrase{% end %}` unfolds its detail on click (`static/js/terms.js`) |
+| `templates/shortcodes/term.html` | Dotted phrases in the homepage intro. Each `{% term(id, label, detail) %}phrase{% end %}` carries a note that opens in the margin beside its line, or between the lines on narrow screens (`static/js/terms.js`) |
 | `static/files/cv.pdf` | Resume linked from the nav |
 
 ## Requirements
